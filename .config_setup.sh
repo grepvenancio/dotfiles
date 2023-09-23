@@ -52,7 +52,7 @@ else
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
     # Add rust to the current shell session
-    source . $HOME/.cargo/env
+    . $HOME/.cargo/env
 fi
 
 # Check if bin-install is already installed
@@ -111,7 +111,7 @@ done
 
 # Add dotfile bare git repo
 echo ".dotfiles" >> .gitignore
-git clone <remote-git-repo-url> $HOME/.dotfiles
+git clone https://github.com/grepvenancio/dotfiles.git $HOME/.dotfiles
 
 # Check if yay is installed
 if ! command -v yay &>/dev/null; then
