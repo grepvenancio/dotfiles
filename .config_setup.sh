@@ -18,7 +18,7 @@ else
 fi
 
 # Define an array of packages to check and install
-pacman_pkg=("git" "pipewire" "networkmanager" "firefox" "gdm" "neovim" "hyprland" "pipewire-alsa" "pipewire-jack" "pipewire-audio" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "ttf-firacode-nerd" "kitty")
+pacman_pkg=("git" "pipewire" "networkmanager" "firefox" "gdm" "neovim" "hyprland" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "ttf-firacode-nerd" "kitty")
 
 # Loop through the array
 for package in "${pacman_pkg[@]}"; do
@@ -55,17 +55,8 @@ else
     . $HOME/.cargo/env
 fi
 
-# Check if bin-install is already installed
-if command -v cargo-binstall &>/dev/null; then
-    echo "cargo-binstall is already installed."
-else
-    # Download cargo-binstall
-    cargo install cargo-binstall
-fi
-
-
 # Define an array of packages to check and install
-packages=("rtx-cli" "exa" "zellij" "procs" "bacon" "bat" "dezoomify-rs" "dust" "fd" "grex" "sqlx" "ytop" "xh" "mprocs" "tldr" "rg" "gitui")
+packages=("rtx-cli" "exa" "zellij" "procs" "bacon" "bat" "dezoomify-rs" "grex" "sqlx-cli" "ytop" "xh" "mprocs" "gitui")
 
 # Loop through the array
 for package in "${packages[@]}"; do
@@ -87,45 +78,16 @@ else
     curl -fsSL https://bun.sh/install | bash
 fi
 
-# Set the keyboard layout to br-abnt2
-layout="br"
-variant="abnt2"
-
-setxkbmap -layout $layout -variant $variant
-
-
 rtx_pkg=("node" "dotnet" "java" "go" "python")
 
 # Loop through the array
 for package in "${rtx_pkg[@]}"; do
-    # Check if the package is installed
-    if command -v "$package" &>/dev/null; then
-        echo "'$package' is already installed"
-    else
-        # Download and install the package
-        echo "Installing '$package'..."
-        rtx install "$package"
-        rtx use -g "$package"
-    fi
+    # Download and install the package
+    echo "Installing '$package'..."
+    rtx install "$package"
+    rtx use -g "$package"
 done
 
 # Add dotfile bare git repo
 echo ".dotfiles" >> .gitignore
-git clone https://github.com/grepvenancio/dotfiles.git $HOME/.dotfiles
-
-# Check if yay is installed
-if ! command -v yay &>/dev/null; then
-    echo "Yay is not installed. Please install yay first."
-    exit 1
-fi
-
-# Check if the user repository is already enabled
-if grep -qE '^#\[yay\]' /etc/yay.conf; then
-    echo "User repository is already enabled."
-else
-    # Uncomment the user repository section in /etc/yay.conf
-    echo "Enabling user repository..."
-    sudo sed -i 's/^#\(\[yay\]\)/\1/' /etc/yay.conf
-
-    echo "User repository is now enabled."
-fi
+git clone --bare https://github.com/grepvenancio/dotfiles.git $HOME/.dotfiles
