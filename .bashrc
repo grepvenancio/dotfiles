@@ -35,7 +35,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 . $HOME/.cargo/env
 
 # Add rtx to path
-eval "$(/home/grepvenancio/.local/share/rtx/bin/rtx activate bash)"
+eval "$($HOME/.cargo/bin/rtx activate bash)"
 
 # Init starship
 eval "$(starship init bash)"
