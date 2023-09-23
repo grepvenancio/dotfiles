@@ -23,21 +23,23 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# some more ls aliases
-# alias ll='ls -alF'
-# alias la='ls -A'
-# alias l='ls -CF'
+# some ls aliases
+alias vim="nvim"
 alias ls='exa --icons -hl --no-user --git --git-ignore'
 alias la='exa --icons -hla --no-user --git'
 alias lt='exa --icons -hlT --no-user --git --git-ignore'
 alias icat='kitty icat'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+# Add rust to path
+. $HOME/.cargo/env
 
-. "$HOME/.cargo/env"
+# Add rtx to path
+eval "$(/home/grepvenancio/.local/share/rtx/bin/rtx activate bash)"
 
-eval "$(rtx activate bash)"
+# Init starship
 eval "$(starship init bash)"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$BUN_INSTALL/bin:$PATH
