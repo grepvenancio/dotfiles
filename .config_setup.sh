@@ -18,7 +18,7 @@ else
 fi
 
 # Define an array of packages to check and install
-pacman_pkg=("git" "pipewire" "networkmanager" "firefox" "gdm" "neovim" "hyprland" "pipewire-alsa" "pipewire-jack" "pipewire-audio" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "ttf-firacode-nerd")
+pacman_pkg=("git" "pipewire" "networkmanager" "firefox" "gdm" "neovim" "hyprland" "pipewire-alsa" "pipewire-jack" "pipewire-audio" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "ttf-firacode-nerd" "kitty")
 
 # Loop through the array
 for package in "${pacman_pkg[@]}"; do
