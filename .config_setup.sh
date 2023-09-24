@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Check if the repository is already enabled
 repo_name="extra"  # Change this to the name of the repository you want to enable
 
+# Check if the repository is already enabled
 if grep -q "^\[$repo_name\]" /etc/pacman.conf; then
     echo "Repository '$repo_name' is already enabled."
 else
