@@ -39,43 +39,28 @@ lazy.setup({
         'nvim-tree/nvim-tree.lua',
         dependencies = { 'nvim-tree/nvim-web-devicons' }
     },
-    {'romgrk/barbar.nvim',
+    {
+        'akinsho/bufferline.nvim',
+        version = "*",
+        dependencies = 'nvim-tree/nvim-web-devicons'
+    },
+    {
+        -- integrate with lualine
+        'nvim-lualine/lualine.nvim',
         dependencies = {
-            'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-            'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+            'nvim-tree/nvim-web-devicons',
+            'linrongbin16/lsp-progress.nvim',
         },
-        init = function() vim.g.barbar_auto_setup = false end,
-        opts = {
-            -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-            -- animation = true,
-            -- insert_at_start = true,
-            -- …etc.
-        },
-        version = '^1.0.0', -- optional: only update when a new 1.x version is released
-    },
-    {
-        "neovim/nvim-lspconfig",
-    },
-    {
-        "williamboman/mason.nvim",
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-    },
-    {
-        'ms-jpq/coq_nvim',
-        branch = 'coq',
-    },
-    {
-        'ms-jpq/coq.artifacts',
-        branch = 'artifacts'
-    },
-    {
-        'ms-jpq/coq.thirdparty',
-        branch = '3p'
+        config = ...
     },
     {
         'sainnhe/gruvbox-material'
+    },
+    {
+        'sekke276/dark_flat.nvim',
+        opts = {
+            transparent = true,
+        }
     },
     {
         'windwp/nvim-ts-autotag'
@@ -85,5 +70,36 @@ lazy.setup({
         event = "InsertEnter",
         opts = {} -- this is equalent to setup({}) function
     },
+    {
+        'xiyaowong/transparent.nvim',
+        opts = {
+        }
+    },
+    {
+        'lewis6991/gitsigns.nvim'
+    },
+    {
+        {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
+
+        --- Uncomment these if you want to manage LSP servers from neovim
+        {'williamboman/mason.nvim'},
+        {'williamboman/mason-lspconfig.nvim'},
+
+        -- LSP Support
+        {
+            'neovim/nvim-lspconfig',
+            dependencies = {
+                {'hrsh7th/cmp-nvim-lsp'},
+            },
+        },
+
+        -- Autocompletion
+        {
+            'hrsh7th/nvim-cmp',
+            dependencies = {
+                {'L3MON4D3/LuaSnip'},
+            }
+        },
+    }
 })
 

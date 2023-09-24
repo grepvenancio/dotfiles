@@ -1,0 +1,56 @@
+* {
+    font-family: "FiraCode Nerd Font", "Font Awesome 6 Free";
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background-color: rgba(7, 7, 10, 0.8);
+    padding: 0.5rem;
+    color: #ffffff;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+/* window#waybar.kitty {...} */
+/* window#waybar.<app_id> {} */
+window#waybar.floating {}
+window#waybar.fullscreen {}
+window#waybar.solo {}
+#clock {
+    padding: 0 1rem;
+}
+#pulseaudio {
+    padding: 0 1rem;
+}
+#window {
+    padding: 0 1rem;
+}
+#window.empty {
+}
+#workspaces {}
+#workspaces button {
+    margin: 0 0.2rem;
+    color: white;
+}
+#workspaces button:hover {
+    color: white;
+    background: transparent;
+    border-top: 1px solid white;
+    transition-duration: .1s;
+}
+
+
+#workspaces button.active {
+    border-bottom: 2px solid white;
+    border-radius: 0;
+}
+
+#workspaces button.empty {
+}
+#workspaces button.persistent {
+}
+#workspaces button.special {
+}
+#workspaces button.visible {
+}
+
