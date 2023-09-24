@@ -30,15 +30,11 @@ for package in "${pacman_pkg[@]}"; do
         echo "Installing '$package'..."
         sudo pacman -S --noconfirm "$package"
         if [ "$package" == "networkmanager" ]; then
-            # Perform specific procedure for "networkmanager"
             echo "Configuring NetworkManager..."
-            # Add your specific commands here
             sudo systemctl enable NetworkManager.service
         fi
         if [ "$package" == "gdm" ]; then
-            # Perform specific procedure for "networkmanager"
             echo "Configuring GDM..."
-            # Add your specific commands here
             sudo systemctl enable gdm.service
         fi
     fi
