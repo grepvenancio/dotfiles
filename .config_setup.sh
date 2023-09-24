@@ -18,7 +18,7 @@ else
 fi
 
 # Define an array of packages to check and install
-pacman_pkg=("git" "networkmanager" "firefox" "gdm" "neovim" "hyprland" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "ttf-firacode-nerd" "otf-font-awesome" "kitty" "starship")
+pacman_pkg=("git" "networkmanager" "firefox" "gdm" "neovim" "hyprland" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "ttf-firacode-nerd" "otf-font-awesome" "kitty" "starship" "hyprpaper" "ranger" "feh" "mpv" "udisks2")
 
 # Loop through the array
 for package in "${pacman_pkg[@]}"; do
@@ -56,7 +56,7 @@ else
 fi
 
 # Define an array of packages to check and install
-packages=("rtx-cli" "exa" "zellij" "procs" "bacon" "bat" "dezoomify-rs" "grex" "sqlx-cli" "ytop" "xh" "mprocs" "gitui")
+packages=("rtx-cli" "exa" "zellij" "procs" "bacon" "bat" "dezoomify-rs" "grex" "sqlx-cli" "ytop" "xh" "mprocs")
 
 # Loop through the array
 for package in "${packages[@]}"; do
@@ -91,3 +91,14 @@ done
 # Add dotfile bare git repo
 echo ".dotfiles" >> .gitignore
 git clone --bare https://github.com/grepvenancio/dotfiles.git $HOME/.dotfiles
+
+# Go to home
+cd 
+mkdir -p "Projects"  # The -p flag ensures parent directories are created if needed 
+cd Projects
+# Clone yay repo
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+# Install ms-edge
+yay -S microsoft-edge-stable-bin
