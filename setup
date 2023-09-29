@@ -18,7 +18,7 @@ else
 fi
 
 # Define an array of packages to check and install
-pacman_pkg=("git" "networkmanager" "firefox" "gdm" "neovim" "hyprland" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "ttf-firacode-nerd" "otf-font-awesome" "kitty" "starship" "hyprpaper" "ranger" "feh" "mpv" "udisks2")
+pacman_pkg=("git" "networkmanager" "firefox" "neovim" "hyprland" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "ttf-firacode-nerd" "otf-font-awesome" "kitty" "starship" "hyprpaper" "ranger" "feh" "mpv" "udisks2" "grim" "slurp" "wl-clipboard" "mako" "pipewire" "wireplumber" "xdg-desktop-portal-hyprland" "qt5-wayland" "qt6-wayland" "polkit-kde-agent" "udiskie" "lightdm" "lightdm-gtk-greeter" "gtk3" "qt5ct" "lxappearance" "gnome-themes-extra")
 
 # Loop through the array
 for package in "${pacman_pkg[@]}"; do
@@ -28,14 +28,14 @@ for package in "${pacman_pkg[@]}"; do
     else
         # Install the package using pacman -S
         echo "Installing '$package'..."
-        sudo pacman -S --noconfirm "$package"
+        sudo pacman -S "$package"
         if [ "$package" == "networkmanager" ]; then
             echo "Configuring NetworkManager..."
             sudo systemctl enable NetworkManager.service
         fi
-        if [ "$package" == "gdm" ]; then
-            echo "Configuring GDM..."
-            sudo systemctl enable gdm.service
+        if [ "$package" == "lightdm" ]; then
+            echo "Configuring lightdm..."
+            sudo systemctl enable lightdm.service
         fi
     fi
 done
@@ -96,5 +96,16 @@ cd Projects
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
-# Install ms-edge
-yay -S microsoft-edge-stable-bin
+
+yay_pkg("adwaita-qt5-git" "mojave-gtk-theme" "colloid-icon-theme-git" "microsoft-edge-stable-bin")
+
+for package in "${yay_pkg[@]}"; do
+    # Check if the package is installed
+    if command -v "$package" &>/dev/null; then
+        echo "'$package' is already installed"
+    else
+        # Download and install the package
+        echo "Installing '$package'..."
+        yay -S "$package"
+    fi
+done

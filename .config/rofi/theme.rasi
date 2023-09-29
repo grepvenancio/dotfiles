@@ -1,20 +1,12 @@
-/*******************************************************************************
- * MACOS SPOTLIGHT LIKE DARK THEME FOR ROFI 
- * User                 : LR-Tech               
- * Theme Repo           : https://github.com/lr-tech/rofi-themes-collection
- *******************************************************************************/
-
 * {
     font:   "Montserrat 12";
 
-    bg0:    rgba(7, 7, 10, 0.8);
     bg1:    #7E7E7E80;
-    bg2:    #17BEBBee;
+
+    accent-color:     #17BEBBee;
+    urgent-color:     #ffcb6b;
 
     fg0:    #DEDEDE;
-    fg1:    #FFFFFF;
-    fg2:    #DEDEDE80;
-
     dt0:    #FFC914ee;
 
     background-color:   transparent;
@@ -26,73 +18,73 @@
 }
 
 window {
-    background-color:   @bg0;
+    border: 1px;
+    border-color: @accent-color;
+    location:   center;
+    width:      480;
 
-    location:       center;
-    width:          640;
-    border-radius:  1;
+    background-color:   #000000;
 }
 
 inputbar {
-    font:       "Montserrat 20";
-    padding:    12px;
-    spacing:    12px;
-    children:   [ icon-search, entry ];
-}
+    spacing:    8px; 
+    padding:    8px;
 
-icon-search {
-    expand:     false;
-    filename:   "search";
-    size: 28px;
-}
-
-icon-search, entry, element-icon, element-text {
-    vertical-align: 0.5;
-}
-
-entry {
-    font:   inherit;
-
-    placeholder         : "Search";
-    placeholder-color   : @fg2;
-}
-
-message {
-    border:             2px 0 0;
-    border-color:       @bg1;
-    background-color:   @bg1;
-}
-
-textbox {
-    padding:    8px 24px;
-}
-
-listview {
-    lines:      10;
-    columns:    1;
-
-    fixed-height:   false;
-    border:         1px 0 0;
-    border-color:   @bg1;
-}
-
-element {
-    padding:            8px 16px;
-    spacing:            16px;
     background-color:   transparent;
 }
 
+prompt, entry, element-icon, element-text {
+    vertical-align: 0.5;
+}
+
+prompt {
+    text-color: @accent-color;
+}
+
+textbox {
+    padding:            8px;
+    background-color:   @bg1;
+}
+
+listview {
+    padding:    4px 0;
+    lines:      8;
+    columns:    1;
+
+    fixed-height:   false;
+}
+
+element {
+    padding:    8px;
+    spacing:    8px;
+}
+
+element normal normal {
+    text-color: @fg0;
+}
+
+element normal urgent {
+    text-color: @urgent-color;
+}
+
 element normal active {
-    text-color: @bg2;
+    text-color: @accent-color;
+}
+
+element selected {
+    text-color: @accent-color;
 }
 
 element selected normal, element selected active {
-    background-color:   @bg2;
-    text-color:         @fg1;
+    background-color:   transparent;
+}
+
+element selected urgent {
+    background-color:   @urgent-color;
 }
 
 element-icon {
-    size:   1em;
+    size:   0.8em;
 }
 
 element-text {
