@@ -34,10 +34,16 @@ else
     . $HOME/.cargo/env
 fi
 
-# Define an array of packages to check and install
-packages=("rtx-cli" "exa" "zellij" "bacon" "bat" "dezoomify-rs" "grex" "sqlx-cli" "ytop" "xh" "mprocs")
+# Check if binstall is already installed
+if command -v cargo-binstall &>/dev/null; then
+    echo "cargo-binstall is already installed."
+else
+    curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+fi
 
-# Loop through the array
+# Define an array of packages to check and install
+packages=("rtx-cli" "alacritty" "exa" "zellij" "bacon" "bat" "dezoomify-rs" "grex" "sqlx-cli" "ytop" "xh" "mprocs" "irust" "du-dust" "fd-find" "inlyne" "miniserve" "procs" "tealdear" "rm-improved" "hx" "cfonts" "himalaya")
+
 for package in "${packages[@]}"; do
     # Check if the package is installed
     if command -v "$package" &>/dev/null; then
@@ -59,7 +65,6 @@ fi
 
 rtx_pkg=("node" "dotnet" "java" "go" "python" "neovim")
 
-# Loop through the array
 for package in "${rtx_pkg[@]}"; do
     # Download and install the package
     echo "Installing '$package'..."
@@ -71,7 +76,7 @@ done
 echo ".dotfiles" >> .gitignore
 git clone --bare https://github.com/grepvenancio/dotfiles.git $HOME/.dotfiles
 
-# Install nvim
+# Check if nvim is already Installed
 if command -v bun &>/dev/null; then
     echo "neovim is already installed."
 else
