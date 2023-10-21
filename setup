@@ -42,7 +42,7 @@ else
 fi
 
 # Define an array of packages to check and install
-packages=("rtx-cli" "alacritty" "exa" "zellij" "bacon" "bat" "dezoomify-rs" "grex" "sqlx-cli" "ytop" "xh" "mprocs" "irust" "du-dust" "fd-find" "inlyne" "miniserve" "procs" "tealdear" "rm-improved" "hx" "cfonts" "himalaya")
+packages=("rtx-cli" "alacritty" "exa" "zellij" "bacon" "bat" "dezoomify-rs" "grex" "sqlx-cli" "ytop" "xh" "mprocs" "irust" "du-dust" "fd-find" "inlyne" "miniserve" "procs" "tealdeer" "rm-improved" "hx" "cfonts" "himalaya")
 
 for package in "${packages[@]}"; do
     # Check if the package is installed
