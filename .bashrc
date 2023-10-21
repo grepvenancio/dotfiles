@@ -30,12 +30,13 @@ alias la='exa --icons -hla --no-user --git'
 alias lt='exa --icons -hlT --no-user --git --git-ignore'
 alias icat='kitty icat'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias create-tauri-app='sh <(curl https://create.tauri.app/sh)'
 
 # Add rust to path
 . $HOME/.cargo/env
 
 # Add rtx to path
-eval "$($HOME/.cargo/bin/rtx activate bash)"
+eval "$(/home/grepvenancio/.local/share/rtx/bin/rtx activate bash)"
 
 # Init starship
 eval "$(starship init bash)"
@@ -43,3 +44,7 @@ eval "$(starship init bash)"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH=$BUN_INSTALL/bin:$PATH
+
+# dotnet
+export PATH=$HOME/.dotnet/:$PATH
+. "$HOME/.cargo/env"

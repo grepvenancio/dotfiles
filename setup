@@ -1,44 +1,27 @@
 #!/bin/bash
 
-repo_name="extra"  # Change this to the name of the repository you want to enable
-
-# Check if the repository is already enabled
-if grep -q "^\[$repo_name\]" /etc/pacman.conf; then
-    echo "Repository '$repo_name' is already enabled."
-else
-    # Add repository information to /etc/pacman.conf
-    echo "Enabling repository '$repo_name'..."
-    echo "[$repo_name]" | sudo tee -a /etc/pacman.conf
-    echo "Include = /etc/pacman.d/mirrorlist" | sudo tee -a /etc/pacman.conf
-
-    # Update package database
-    sudo pacman -Sy
-
-    echo "Repository '$repo_name' is now enabled."
-fi
-
 # Define an array of packages to check and install
-pacman_pkg=("git" "networkmanager" "firefox" "neovim" "hyprland" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "ttf-firacode-nerd" "otf-font-awesome" "kitty" "starship" "hyprpaper" "ranger" "feh" "mpv" "udisks2" "grim" "slurp" "wl-clipboard" "mako" "pipewire" "wireplumber" "xdg-desktop-portal-hyprland" "qt5-wayland" "qt6-wayland" "polkit-kde-agent" "udiskie" "lightdm" "lightdm-gtk-greeter" "gtk3" "qt5ct" "lxappearance" "gnome-themes-extra")
-
-# Loop through the array
-for package in "${pacman_pkg[@]}"; do
-    # Check if the package is installed
-    if pacman -Q "$package" &>/dev/null; then
-        echo "'$package' is already installed"
-    else
-        # Install the package using pacman -S
-        echo "Installing '$package'..."
-        sudo pacman -S "$package"
-        if [ "$package" == "networkmanager" ]; then
-            echo "Configuring NetworkManager..."
-            sudo systemctl enable NetworkManager.service
-        fi
-        if [ "$package" == "lightdm" ]; then
-            echo "Configuring lightdm..."
-            sudo systemctl enable lightdm.service
-        fi
-    fi
-done
+# pacman_pkg=("git" "hyprland" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "ttf-firacode-nerd" "otf-font-awesome" "kitty" "starship" "hyprpaper" "ranger" "feh" "mpv" "udisks2" "grim" "slurp" "wl-clipboard" "mako" "pipewire" "wireplumber" "xdg-desktop-portal-hyprland" "qt5-wayland" "qt6-wayland" "polkit-kde-agent" "udiskie" "lightdm" "lightdm-gtk-greeter" "gtk3" "qt5ct" "lxappearance" "gnome-themes-extra")
+#
+# # Loop through the array
+# for package in "${pacman_pkg[@]}"; do
+#     # Check if the package is installed
+#     if pacman -Q "$package" &>/dev/null; then
+#         echo "'$package' is already installed"
+#     else
+#         # Install the package using pacman -S
+#         echo "Installing '$package'..."
+#         sudo pacman -S "$package"
+#         if [ "$package" == "networkmanager" ]; then
+#             echo "Configuring NetworkManager..."
+#             sudo systemctl enable NetworkManager.service
+#         fi
+#         if [ "$package" == "lightdm" ]; then
+#             echo "Configuring lightdm..."
+#             sudo systemctl enable lightdm.service
+#         fi
+#     fi
+# done
 
 # Check if rustup is already installed
 if command -v rustup &>/dev/null; then
@@ -52,7 +35,7 @@ else
 fi
 
 # Define an array of packages to check and install
-packages=("rtx-cli" "exa" "zellij" "procs" "bacon" "bat" "dezoomify-rs" "grex" "sqlx-cli" "ytop" "xh" "mprocs")
+packages=("rtx-cli" "exa" "zellij" "bacon" "bat" "dezoomify-rs" "grex" "sqlx-cli" "ytop" "xh" "mprocs")
 
 # Loop through the array
 for package in "${packages[@]}"; do
@@ -62,7 +45,7 @@ for package in "${packages[@]}"; do
     else
         # Download and install the package
         echo "Installing '$package'..."
-        cargo-binstall "$package"
+        cargo binstall "$package"
     fi
 done
 
@@ -74,7 +57,7 @@ else
     curl -fsSL https://bun.sh/install | bash
 fi
 
-rtx_pkg=("node" "dotnet" "java" "go" "python")
+rtx_pkg=("node" "dotnet" "java" "go" "python" "neovim")
 
 # Loop through the array
 for package in "${rtx_pkg[@]}"; do
@@ -88,24 +71,15 @@ done
 echo ".dotfiles" >> .gitignore
 git clone --bare https://github.com/grepvenancio/dotfiles.git $HOME/.dotfiles
 
-# Go to home
-cd 
-mkdir -p "Projects"  # The -p flag ensures parent directories are created if needed 
-cd Projects
-# Clone yay repo
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-
-yay_pkg("adwaita-qt5-git" "mojave-gtk-theme" "colloid-icon-theme-git" "microsoft-edge-stable-bin")
-
-for package in "${yay_pkg[@]}"; do
-    # Check if the package is installed
-    if command -v "$package" &>/dev/null; then
-        echo "'$package' is already installed"
-    else
-        # Download and install the package
-        echo "Installing '$package'..."
-        yay -S "$package"
-    fi
-done
+# Install nvim
+if command -v bun &>/dev/null; then
+    echo "neovim is already installed."
+else
+    cd "/tmp"
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    chmod u+x nvim.appimage
+    ./nvim.appimage --appimage-extract
+    ./squashfs-root/AppRun --version
+    sudo mv squashfs-root /
+    sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
+fi

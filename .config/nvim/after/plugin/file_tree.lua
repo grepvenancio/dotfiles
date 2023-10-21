@@ -1,4 +1,3 @@
-
 require("nvim-tree").setup({
   on_attach = tree_on_attach,
   sort_by = "case_sensitive",
